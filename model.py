@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 class Record():
-    def __init__(self, id, name):
+    def __init__(self, id):
         self.id = id
-        self.name = name
+        self.name = ""
         self.organization = ""
         self.lab = ""
         self.first = []
@@ -23,3 +23,8 @@ class Record():
     
     def rm_other(self, article):
         self.other.remove(article)
+
+class Poster():
+    def __init__(self, id, title):
+        self.id = id
+        self.title = title

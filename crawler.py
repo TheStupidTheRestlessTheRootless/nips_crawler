@@ -1,30 +1,92 @@
 # -*- coding: UTF-8 -*-
 import requests
 from bs4 import BeautifulSoup
+import re
+from model import Record, Poster
 
 poster_url = "https://nips.cc/Conferences/{0}/Schedule?type=Poster"
 poster_detail_url="https://nips.cc/Conferences/2016/Schedule?showEvent={0}"
 speaker_detail_url="https://nips.cc/Conferences/2017/Schedule?showSpeaker={0}"
+article_list_url="http://papers.nips.cc/author/{0}-{1}"
+
+
 
 # get the poster id list
 def get_year_posters(year):
+    print("get poster of year: " + year)
+    poster_list = []
     r = requests.get(poster_url.format(year))
-    soup = BeautifulSoup(r.text)
-    tags = soup.find_all('a')
-    print(tags)
+    soup = BeautifulSoup(r.text, features="html.parser")
+    tags = soup.find_all('div', {"onclick": re.compile(r"showDetail.*")})
     for a in tags:
-        print(a)
+        ids = re.compile(r"[\d | -]+").findall(a["onclick"])
+        title = a.find('div', class_='maincardBody')
+        if len(ids)>0:
+            poster_list.append(Poster(ids[0], title.text))
+    return poster_list
 
 # get speaker id list in poster detail page
-def get_speakers(poster_id):
-    print(poster_id)
+def get_speakers(poster, speaker_dict = {}):
+    print("get speakers by poster: " + poster.id)
+    r = requests.get(poster_detail_url.format(poster.id))
+    soup = BeautifulSoup(r.text, features="html.parser")
+    tags = soup.find_all('button', {"onclick": re.compile(r"showSpeaker.*")})
+    for i, a in enumerate(tags):
+        print(i)
+        print(a)
+        ids = re.compile(r"[\d | -]+").findall(a["onclick"])
+        if len(ids)>0 :
+            id = ids[0]
+            if (id not in speaker_dict):
+                speaker_dict[id] = Record(ids[0]) 
+            record = speaker_dict[id]
+            if i == 0 and (poster.title not in record.first):
+                record.add_first(poster.title)
+            if i > 0 and (poster.title not in record.other):
+                record.add_other(poster.title)
+            get_speakers_detail(record)
+    return speaker_dict
 
 # get speaker organization by speaker id
-def get_speakers_detail(speaker_id):
-    print(speaker_id)
+def get_speakers_detail(record):
+    print("get speaker detail: " + record.id)
+    r = requests.get(speaker_detail_url.format(record.id))
+    soup = BeautifulSoup(r.text, features="html.parser")
+    tags = soup.find_all('div', class_="maincard")
+    for t in tags:
+        record.name = t.h3.text
+        record.organization = t.h4.text
+
+# get speaker articles by speaker name and id
+def get_speaker_articles(record):
+    print("get speaker articles: " + record.id)
+    print(article_list_url.format(record.name.replace(' ', '-').lower(), record.id))
+    r = requests.get(article_list_url.format(record.name.replace(' ', '-').lower(), record.id))
+    soup = BeautifulSoup(r.text, features="html.parser")
+    tags = soup.find_all('li', class_="paper")
+    for li in tags:
+        print(li)
+
+def is_first_author(article):
+    print(article)
 
 def get_nips_records(years):
     records = []
+    speaker_dict = {}
     for y in years:
-        get_year_posters(y)
+        posters = get_year_posters(y)
+        for p in posters:
+            get_speakers(p, speaker_dict)
+    
+    for i in speaker_dict.items():
+        i[1].name
+        i[1].organization
+        i[1].first
+        i[1].other
+
+    # get_speakers('8492', speaker_dict)
+    # for r in speaker_dict.items():
+    #     get_speakers_detail(r[1])
+    # for r in speaker_dict.items():
+    #     get_speaker_articles(r[1])
     return records
