@@ -5,6 +5,7 @@ import re
 import time
 from session import session
 from model import Record, Poster
+from config import Configs
 
 poster_url = "https://nips.cc/Conferences/{0}/Schedule?type=Poster"
 poster_detail_url="https://nips.cc/Conferences/2016/Schedule?showEvent={0}"
@@ -65,7 +66,7 @@ def get_speakers_detail(record):
     except requests.exceptions.RequestException as e:  # This is the correct syntax
         print(e)
     # 延迟一会儿，避免服务器压力过大
-    time.sleep(1)
+    time.sleep(Configs.sleep_interval)
 
 # get speaker articles by speaker name and id
 def get_speaker_articles(record):
