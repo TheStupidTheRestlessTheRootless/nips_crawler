@@ -1,0 +1,11 @@
+{
+    "name": "gaosucangtianwoburenshu",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+      "lodash": "^4.17.5",
+      "puppeteer": "^1.1.1"
+    }
+  }
+  
