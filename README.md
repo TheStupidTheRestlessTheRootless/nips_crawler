@@ -11,4 +11,9 @@ install
 
 run 
 
-`python -u app.py`
+`python app.py`
+
+config.py
+
+> years: 要统计的年份列表
+> sleep_interval: 每个详情请求后sleep的时间，减轻服务器压力
