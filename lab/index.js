@@ -61,7 +61,9 @@ const doAdvancedQuery = async record => {
 };
 
 (async () => {
-    fs.mkdirSync("./temp");
+    if (!fs.existsSync("./temp")) {
+        fs.mkdirSync("./temp");
+    }
     browser = await puppeteer.launch({ headless: false });
 
     for (let item of data) {
