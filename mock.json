@@ -1,0 +1,50 @@
+[
+    {
+        "id": "zhang-wei-hong_national_tsing_hua_university",
+        "name": "Zhang-Wei Hong",
+        "organization": "National Tsing Hua University",
+        "lab": "",
+        "first": ["Diversity-Driven Exploration Strategy for Deep Reinforcement Learning"],
+        "other": []
+    },
+    {
+        "id": "ariel-shann_university_of_british_columbia",
+        "name": "Ariel Shann",
+        "organization": "University of British Columbia",
+        "lab": "",
+        "first": [],
+        "other": ["Diversity-Driven Exploration Strategy for Deep Reinforcement Learning"]
+    },
+    {
+        "id": "shih-yang-su_virginia_tech",
+        "name": "Shih-Yang Su",
+        "organization": "Virginia Tech",
+        "lab": "",
+        "first": [],
+        "other": ["Diversity-Driven Exploration Strategy for Deep Reinforcement Learning"]
+    },
+    {
+        "id": "yi-hsiang-chang_",
+        "name": "Yi-Hsiang Chang",
+        "organization": "",
+        "lab": "",
+        "first": [],
+        "other": ["Diversity-Driven Exploration Strategy for Deep Reinforcement Learning"]
+    },
+    {
+        "id": "tsu-jui-fu_academia_sinica",
+        "name": "Tsu-Jui Fu",
+        "organization": "Academia Sinica",
+        "lab": "",
+        "first": [],
+        "other": ["Diversity-Driven Exploration Strategy for Deep Reinforcement Learning"]
+    },
+    {
+        "id": "chun-yi-lee_national_tsing_hua_university",
+        "name": "Chun-Yi Lee",
+        "organization": "National Tsing Hua University",
+        "lab": "",
+        "first": [],
+        "other": ["Diversity-Driven Exploration Strategy for Deep Reinforcement Learning"]
+    }
+]
