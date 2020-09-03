@@ -5,7 +5,7 @@
     "license": "MIT",
     "dependencies": {
       "lodash": "^4.17.5",
-      "puppeteer": "^1.1.1"
+      "puppeteer": "^1.13.0"
     }
   }
   
